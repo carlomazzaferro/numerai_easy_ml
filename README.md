@@ -1,6 +1,6 @@
-# Numerai_easy_ml
+# Numerai Easy ML
 
-_A spin off of [cookie-cutter data science](https://github.com/drivendata/cookiecutter-data-science) from [reproducible-ml](https://github.com/carlomazzaferro/reproducible-ml) (under construction) applied to the numer.ai data science competition_
+_A spin off of [cookie-cutter data science](https://github.com/drivendata/cookiecutter-data-science) from [reproducible-ml](https://github.com/carlomazzaferro/reproducible-ml) (under construction) applied to the numer.ai data science competition._
 
 Project Organization
 --------------------
@@ -28,7 +28,7 @@ Project Organization
     │                         generated with `pip freeze > requirements.txt`
     │
     └── src                <- Source code for use in this project.
-        ├── __init__.py    <- Makes src a Python module
+        ├── __init__.py    
         │
         ├── data           <- Scripts to download or generate data
         │   └── make_dataset.py
@@ -47,7 +47,6 @@ Project Organization
         │   ├── MODEL_4.py
         │   └── __init__.py 
         │     
-        │
         └── utils
             ├── __init__.py 
             ├── definitions.py  <- File structure definitions

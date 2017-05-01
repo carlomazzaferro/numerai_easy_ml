@@ -23,34 +23,16 @@ class FeedForwardNet(base.Base):
         self.y_test = numpy.reshape(self.y_test, (self.y_test.shape[0], 1))
         self.y_train = numpy.reshape(self.y_train, (self.y_train.shape[0], 1))
 
-    @staticmethod
-    def add_deep_layers(net, layer_sizes):
-
-        for idx, layer in enumerate(layer_sizes[0:-1]):
-            net = tflearn.fully_connected(net, layer_sizes[idx], activation='prelu')
-
-        out_rnn = tflearn.fully_connected(net, layer_sizes[-1], activation='prelu')
-
-        return out_rnn
-
-    def model(self, layer_size=None, tensorboard_verbose=3, batch_norm=2, learning_rate=0.001):
+    def model(self, layer_size=None, tensorboard_verbose=3, learning_rate=0.001):
 
         input_shape = [None, self.x_train.shape[1]]
 
         net = tflearn.input_data(shape=input_shape)
+        net = tflearn.fully_connected(net, layer_size[0], activation='prelu')
+        net = tflearn.fully_connected(net, layer_size[1], activation='prelu')
+        net = tflearn.fully_connected(net, layer_size[2], activation='prelu')
         net = tflearn.layers.normalization.batch_normalization(net)
-
-        deep_layers_output = self.add_deep_layers(net, layer_size)
-        net = tflearn.layers.normalization.batch_normalization(deep_layers_output)
-
-        if batch_norm > 0:
-            net = tflearn.layers.normalization.batch_normalization(net)
-        net = tflearn.dropout(net, 0.3)
-
         net = tflearn.fully_connected(net, 1, activation='sigmoid')
-
-        if batch_norm > 1:
-            net = tflearn.layers.normalization.batch_normalization(net)
 
         with tf.name_scope("TargetsData"):  # placeholder for target variable (i.e. trainY input)
             targetY = tf.placeholder(shape=[None, 1], dtype=tf.float32, name="Y")
@@ -64,9 +46,8 @@ class FeedForwardNet(base.Base):
 
         model = tflearn.DNN(network, tensorboard_verbose=tensorboard_verbose)
 
-        self.populate_params(['model_type', 'layer_size', 'tensorboard_verbose', 'batch_norm',
-                              'learning_rate'], [self.model_type, layer_size, tensorboard_verbose, batch_norm,
-                                                 learning_rate])
+        self.populate_params(['model_type', 'layer_size', 'tensorboard_verbose', 'learning_rate'],
+                             [self.model_type, layer_size, tensorboard_verbose, learning_rate])
         return model
 
 
@@ -78,7 +59,6 @@ if __name__ == '__main__':
 
     my_model = FF.model(layer_size=[700, 500, 200],
                         tensorboard_verbose=1,
-                        batch_norm=1,
                         learning_rate=0.0001)
 
     trained_model = FF.train(my_model,

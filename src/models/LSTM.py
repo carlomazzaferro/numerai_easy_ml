@@ -28,36 +28,14 @@ class LSTM(base.Base):
         self.y_test = numpy.reshape(self.y_test, (self.y_test.shape[0], 1))
 
 
-
-    @staticmethod
-    def add_deep_layers(net, layer_size, n_layers):
-
-        for i in range(n_layers):
-            net = tflearn.lstm(net, n_units=layer_size, return_seq=True)
-
-        out_rnn = tflearn.lstm(net, layer_size)
-
-        return out_rnn
-
-    def model(self, layer_size=32, tensorboard_verbose=3, batch_norm=2, n_layers=2,
-              learning_rate=0.001):
+    def model(self, layer_size=32, tensorboard_verbose=3, learning_rate=0.001):
 
         tf.reset_default_graph()
         input_shape = [None, 1, self.x_train.shape[2]]
         net = tflearn.input_data(shape=input_shape)
-
-        net = tflearn.layers.normalization.batch_normalization(net)
-        deep_layers_output = self.add_deep_layers(net, layer_size, n_layers)
-        net = tflearn.layers.normalization.batch_normalization(deep_layers_output)
+        net = tflearn.lstm(net, n_units=layer_size, return_seq=True)
         net = tflearn.fully_connected(net, 300, activation='prelu')
-
-        if batch_norm > 0:
-            net = tflearn.layers.normalization.batch_normalization(net)
-        net = tflearn.dropout(net, 0.1)
         net = tflearn.fully_connected(net, 1, activation='sigmoid')
-        if batch_norm > 1:
-            net = tflearn.layers.normalization.batch_normalization(net)
-
         with tf.name_scope("TargetsData"):  # placeholder for target variable (i.e. trainY input)
             targetY = tf.placeholder(shape=[None, 1], dtype=tf.float32, name="Y")
 
@@ -70,21 +48,19 @@ class LSTM(base.Base):
 
         model = tflearn.DNN(network, tensorboard_verbose=tensorboard_verbose)
 
-        self.populate_params(['model_type', 'layer_size', 'tensorboard_verbose', 'batch_norm', 'n_layers',
-                              'learning_rate'], [self.model_type, layer_size, tensorboard_verbose, batch_norm, n_layers,
-                                                 learning_rate])
-        return model
+        self.populate_params(['model_type', 'layer_size', 'tensorboard_verbose','learning_rate'],
+                             [self.model_type, layer_size, tensorboard_verbose, learning_rate])
 
+        return model
 
 if __name__ == '__main__':
 
+    """
     LSTM_MODEL = LSTM(problem_type='regression')
     LSTM_MODEL.load_data()
     LSTM_MODEL.mod_input(to_np=True)
     my_model = LSTM_MODEL.model(layer_size=25,
                                 tensorboard_verbose=1,
-                                batch_norm=1,
-                                n_layers=2,
                                 learning_rate=0.00001)
 
     trained_model = LSTM_MODEL.train(my_model,
@@ -94,5 +70,5 @@ if __name__ == '__main__':
 
     df, r = LSTM_MODEL.predict(trained_model)
 
-
+    """
 
