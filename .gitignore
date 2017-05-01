@@ -1,15 +1,9 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*$py.class
 
 # C extensions
 *.so
-
-.idea/
-
-awsCluster/cfnCluster/CFNClusterManager_refactored.py
-notebooks/Untitled.ipynb
 
 # Distribution / packaging
 .Python
@@ -48,7 +42,6 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *,cover
-.hypothesis/
 
 # Translations
 *.mo
@@ -63,18 +56,18 @@ docs/_build/
 # PyBuilder
 target/
 
-#Ipython Notebook
-.ipynb_checkpoints
+# DotEnv configuration
+.env
+
+# Database
+*.db
+*.rdb
+
+# Pycharm
+.idea
+
+# Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-
-#.json docs
-
-
-
-#ignore .csv and .tsv files
-*.tsv
-
-#ignore all files in folder named results
-results/
-test_files/
+# exclude data from source control by default
+# /data/
