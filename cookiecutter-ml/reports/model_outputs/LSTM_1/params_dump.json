@@ -1,0 +1,1 @@
+{"data_dir": "/Users/carlomazzaferro/Documents/Code/numerai_easy_ml/cookiecutter-ml/src/utils/../../reports/model_outputs/", "batch_norm": 1, "tensorboard_verbose": 1, "n_epochs": 20, "validation_set": 0.1, "n_layers": 2, "run_id": "LSTM_1", "layer_size": 15, "batch_size": 80, "model_type": "LSTM", "learning_rate": 1e-05, "roc_auc": 0.5244882069756476}

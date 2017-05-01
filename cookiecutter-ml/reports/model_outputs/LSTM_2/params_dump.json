@@ -1,0 +1,1 @@
+{"layer_size": 25, "learning_rate": 1e-05, "roc_auc": 0.5249117915790488, "tensorboard_verbose": 1, "model_type": "LSTM", "n_layers": 2, "validation_set": [

@@ -1,0 +1,1 @@
+{"data_dir": "/Users/carlomazzaferro/Documents/Code/numerai_easy_ml/cookiecutter-ml/src/utils/../../reports/model_outputs/", "tensorboard_verbose": 1, "model_type": "FF", "batch_size": 80, "batch_norm": 1, "n_epochs": 1, "layer_size": [700, 500, 200], "run_id": "FF_0", "validation_set": 0.1, "roc_auc": 0.5111002483465603, "learning_rate": 0.0001}
